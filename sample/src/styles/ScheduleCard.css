@@ -1,0 +1,189 @@
+.schedule-card {
+  background: white;
+  border: 1px solid #e9edf5;
+  border-radius: 24px;
+  padding: 21px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 12px 35px rgba(40, 61, 110, 0.07);
+  transition: 0.3s ease;
+}
+
+.schedule-card::before {
+  content: "";
+  position: absolute;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  right: -35px;
+  top: -35px;
+  background: rgba(55, 124, 255, 0.08);
+}
+
+.schedule-card:hover {
+  transform: translateY(-7px);
+  box-shadow: 0 20px 45px rgba(40, 61, 110, 0.14);
+}
+
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.category,
+.priority {
+  padding: 6px 10px;
+  border-radius: 12px;
+  font-size: 10px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.category {
+  background: #eaf2ff;
+  color: #3477e5;
+}
+
+.category.assignment {
+  background: #ffe9f4;
+  color: #e84e9e;
+}
+
+.category.report {
+  background: #f0eaff;
+  color: #7955dc;
+}
+
+.category.project {
+  background: #e8faf4;
+  color: #16a879;
+}
+
+.category.exam {
+  background: #fff1df;
+  color: #d98922;
+}
+
+.priority {
+  background: #f1f3f7;
+  color: #7c8495;
+}
+
+.priority.high {
+  background: #ffe4e7;
+  color: #e34c59;
+}
+
+.priority.medium {
+  background: #fff0dc;
+  color: #dc8a26;
+}
+
+.priority.low {
+  background: #e5f8ef;
+  color: #19996b;
+}
+
+.card-content {
+  margin: 22px 0;
+}
+
+.card-content h3 {
+  margin: 0 0 8px;
+  color: #1e2b4d;
+  font-size: 19px;
+}
+
+.card-content p {
+  margin: 0;
+  min-height: 42px;
+  color: #7d879c;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.schedule-details {
+  display: flex;
+  gap: 15px;
+  padding: 13px 0;
+  border-top: 1px solid #eef0f5;
+  border-bottom: 1px solid #eef0f5;
+  color: #69758d;
+  font-size: 12px;
+}
+
+.schedule-details div {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.schedule-details span {
+  font-size: 14px;
+}
+
+.card-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 15px;
+}
+
+.complete-button,
+.delete-button {
+  border: none;
+  border-radius: 12px;
+  padding: 10px;
+  cursor: pointer;
+  font-weight: 800;
+  font-size: 11px;
+  transition: 0.25s;
+}
+
+.complete-button {
+  background: linear-gradient(100deg, #267dff, #5968ed);
+  color: white;
+}
+
+.complete-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(55, 110, 235, 0.25);
+}
+
+.delete-button {
+  background: #fff0f4;
+  color: #df4e79;
+}
+
+.delete-button:hover {
+  background: #ffe0ea;
+}
+
+.completed-card {
+  opacity: 0.7;
+}
+
+.completed-card .card-content h3 {
+  text-decoration: line-through;
+}
+
+@media (max-width: 400px) {
+  .schedule-card {
+    padding: 17px;
+  }
+
+  .card-top {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .schedule-details {
+    flex-direction: column;
+    gap: 7px;
+  }
+
+  .card-actions {
+    grid-template-columns: 1fr;
+  }
+}
