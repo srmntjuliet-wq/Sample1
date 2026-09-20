@@ -1,0 +1,101 @@
+.schedule-list-section {
+  margin-bottom: 50px;
+}
+
+.list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 22px;
+}
+
+.schedule-count {
+  padding: 9px 15px;
+  border-radius: 20px;
+  background: #eef5ff;
+  color: #4279dc;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.filter-bar {
+  display: flex;
+  gap: 9px;
+  overflow-x: auto;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+.filter-bar button {
+  white-space: nowrap;
+  border: 1px solid #e8ebf4;
+  background: white;
+  color: #69758e;
+  border-radius: 20px;
+  padding: 9px 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.filter-bar button:hover {
+  border-color: #ef5ba7;
+  color: #e84d9b;
+}
+
+.filter-bar button.active {
+  color: white;
+  border-color: transparent;
+  background: linear-gradient(100deg, #267cff, #e94fa4);
+  box-shadow: 0 8px 18px rgba(75, 105, 239, 0.2);
+}
+
+.schedule-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.empty-state {
+  grid-column: 1 / -1;
+  padding: 60px 20px;
+  text-align: center;
+  border-radius: 25px;
+  background: white;
+  border: 2px dashed #dfe5f3;
+}
+
+.empty-state div {
+  font-size: 45px;
+  margin-bottom: 10px;
+}
+
+.empty-state h3 {
+  margin: 0;
+  color: #273453;
+}
+
+.empty-state p {
+  color: #8b95aa;
+}
+
+@media (max-width: 1000px) {
+  .schedule-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 650px) {
+  .list-header {
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .schedule-count {
+    font-size: 11px;
+  }
+
+  .schedule-grid {
+    grid-template-columns: 1fr;
+  }
+}
