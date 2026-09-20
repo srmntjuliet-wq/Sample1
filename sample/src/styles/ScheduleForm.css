@@ -1,87 +1,135 @@
-import "../styles/Dashboard.css";
-
-function Dashboard({ schedules }) {
-  const total = schedules.length;
-
-  const completed = schedules.filter(
-    (schedule) => schedule.completed
-  ).length;
-
-  const pending = schedules.filter(
-    (schedule) => !schedule.completed
-  ).length;
-
-  const highPriority = schedules.filter(
-    (schedule) => schedule.priority === "High"
-  ).length;
-
-  return (
-    <section className="dashboard" id="dashboard">
-
-      <div className="dashboard-heading">
-        <div>
-          <span className="small-label">MY ACADEMIC PLANNER</span>
-
-          <h2>
-            Plan it.
-            <span> Schedule it.</span>
-            <br />
-            Finish it.
-          </h2>
-
-          <p>
-            Organize your activities, assignments, reports,
-            projects, and other school tasks in one place.
-          </p>
-        </div>
-
-        <div className="calendar-icon">
-          📅
-        </div>
-      </div>
-
-      <div className="stats-grid">
-
-        <div className="stat-card blue-card">
-          <div className="stat-icon">📋</div>
-
-          <div>
-            <span>Total Tasks</span>
-            <strong>{total}</strong>
-          </div>
-        </div>
-
-        <div className="stat-card pink-card">
-          <div className="stat-icon">⏳</div>
-
-          <div>
-            <span>Pending</span>
-            <strong>{pending}</strong>
-          </div>
-        </div>
-
-        <div className="stat-card purple-card">
-          <div className="stat-icon">✓</div>
-
-          <div>
-            <span>Completed</span>
-            <strong>{completed}</strong>
-          </div>
-        </div>
-
-        <div className="stat-card orange-card">
-          <div className="stat-icon">🔥</div>
-
-          <div>
-            <span>High Priority</span>
-            <strong>{highPriority}</strong>
-          </div>
-        </div>
-
-      </div>
-
-    </section>
-  );
+.schedule-form-section {
+  background: white;
+  border: 1px solid #edf0f7;
+  border-radius: 28px;
+  padding: 30px;
+  margin-bottom: 40px;
+  box-shadow: 0 15px 45px rgba(48, 70, 120, 0.07);
 }
 
-export default Dashboard;
+.section-title > div,
+.list-header > div {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.section-number {
+  min-width: 42px;
+  height: 42px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, #277cff, #ed4fa3);
+  color: white;
+  font-weight: 900;
+  font-size: 12px;
+  box-shadow: 0 8px 20px rgba(82, 103, 255, 0.2);
+}
+
+.section-title h2,
+.list-header h2 {
+  margin: 0;
+  color: #1c294b;
+}
+
+.section-title p,
+.list-header p {
+  margin: 5px 0 0;
+  color: #8a94a8;
+  font-size: 13px;
+}
+
+.schedule-form {
+  margin-top: 28px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.full-width {
+  grid-column: 1 / -1;
+}
+
+.form-group label {
+  color: #475574;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  box-sizing: border-box;
+  border: 2px solid #edf0f7;
+  border-radius: 14px;
+  padding: 13px 15px;
+  outline: none;
+  color: #34415f;
+  background: #fbfcff;
+  font-family: inherit;
+  transition: 0.25s;
+}
+
+.form-group textarea {
+  min-height: 95px;
+  resize: vertical;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: #5b86ff;
+  background: white;
+  box-shadow: 0 0 0 4px rgba(91, 134, 255, 0.1);
+}
+
+.create-button {
+  grid-column: 1 / -1;
+  border: none;
+  border-radius: 15px;
+  padding: 15px 20px;
+  color: white;
+  background: linear-gradient(100deg, #217cff, #c94cff, #ef4c9f);
+  font-size: 15px;
+  font-weight: 900;
+  cursor: pointer;
+  transition: 0.3s;
+  box-shadow: 0 12px 25px rgba(105, 81, 238, 0.25);
+}
+
+.create-button span {
+  font-size: 20px;
+  margin-right: 7px;
+}
+
+.create-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 35px rgba(105, 81, 238, 0.32);
+}
+
+.create-button:active {
+  transform: scale(0.98);
+}
+
+@media (max-width: 650px) {
+  .schedule-form-section {
+    padding: 20px;
+  }
+
+  .schedule-form {
+    grid-template-columns: 1fr;
+  }
+
+  .full-width,
+  .create-button {
+    grid-column: auto;
+  }
+}
