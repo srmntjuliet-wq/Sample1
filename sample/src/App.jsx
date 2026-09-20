@@ -1,122 +1,105 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import './App.css'
+import { useState } from "react";
+
+import Navbar from "./components/Navbar";
+import Dashboard from "./components/Dashboard";
+import ScheduleForm from "./components/ScheduleForm";
+import ScheduleList from "./components/ScheduleList";
+import ScheduleCard from "./components/ScheduleCard";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [schedules, setSchedules] = useState([
+    {
+      id: 1,
+      title: "React Activity",
+      description: "Create a responsive React website.",
+      category: "Activity",
+      date: "2026-09-22",
+      time: "09:00",
+      priority: "High",
+      completed: false,
+    },
+    {
+      id: 2,
+      title: "Information Management Report",
+      description: "Prepare the presentation and report.",
+      category: "Report",
+      date: "2026-09-24",
+      time: "13:00",
+      priority: "Medium",
+      completed: false,
+    },
+    {
+      id: 3,
+      title: "Programming Assignment",
+      description: "Finish the programming exercises.",
+      category: "Assignment",
+      date: "2026-09-26",
+      time: "15:30",
+      priority: "Low",
+      completed: false,
+    },
+  ]);
+
+  const [filter, setFilter] = useState("All");
+
+  const addSchedule = (newSchedule) => {
+    setSchedules((previous) => [
+      ...previous,
+      {
+        ...newSchedule,
+        id: Date.now(),
+        completed: false,
+      },
+    ]);
+  };
+
+  const deleteSchedule = (id) => {
+    setSchedules((previous) =>
+      previous.filter((schedule) => schedule.id !== id)
+    );
+  };
+
+  const toggleComplete = (id) => {
+    setSchedules((previous) =>
+      previous.map((schedule) =>
+        schedule.id === id
+          ? { ...schedule, completed: !schedule.completed }
+          : schedule
+      )
+    );
+  };
+
+  const filteredSchedules =
+    filter === "All"
+      ? schedules
+      : schedules.filter((schedule) => schedule.category === filter);
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
+    <div className="app">
+      <Navbar />
+
+      <main className="main-content">
+        <Dashboard schedules={schedules} />
+
+        <ScheduleForm onAddSchedule={addSchedule} />
+
+        <ScheduleList
+          schedules={filteredSchedules}
+          filter={filter}
+          setFilter={setFilter}
         >
-          Count is {count}
-        </button>
-      </section>
-
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+          {filteredSchedules.map((schedule) => (
+            <ScheduleCard
+              key={schedule.id}
+              schedule={schedule}
+              onDelete={deleteSchedule}
+              onToggle={toggleComplete}
+            />
+          ))}
+        </ScheduleList>
+      </main>
+    </div>
+  );
 }
 
-export default App
+export default App;
