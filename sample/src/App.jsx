@@ -96,6 +96,21 @@ function App() {
     );
   };
 
+  const completedCount = schedules.filter((s) => s.completed).length;
+
+  const clearCompleted = () => {
+    if (completedCount === 0) return;
+    setSchedules((previous) =>
+      previous.filter((schedule) => !schedule.completed)
+    );
+    showToast(
+      `${completedCount} completed schedule${
+        completedCount === 1 ? "" : "s"
+      } cleared.`,
+      "info"
+    );
+  };
+
   const normalizedQuery = search.trim().toLowerCase();
 
   const filteredSchedules = schedules
@@ -133,6 +148,8 @@ function App() {
           onSearchChange={setSearch}
           sortBy={sortBy}
           onSortChange={setSortBy}
+          completedCount={completedCount}
+          onClearCompleted={clearCompleted}
         >
           {visibleSchedules.map((schedule) => (
             <ScheduleCard

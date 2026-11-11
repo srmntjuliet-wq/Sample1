@@ -7,6 +7,31 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 22px;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.list-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.clear-completed-btn {
+  border: 1px solid #ffd7e6;
+  background: #fff5fa;
+  color: #d63f8b;
+  border-radius: 20px;
+  padding: 9px 15px;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.clear-completed-btn:hover {
+  background: #ffe4f1;
+  border-color: #ef5ba7;
 }
 
 .schedule-count {
@@ -190,5 +215,9 @@
 
   .sort-select {
     width: 100%;
+  }
+
+  .list-header-actions {
+    flex-wrap: wrap;
   }
 }

@@ -10,6 +10,8 @@ function ScheduleList({
   onSearchChange,
   sortBy,
   onSortChange,
+  completedCount,
+  onClearCompleted,
   children,
 }) {
   return (
@@ -24,7 +26,19 @@ function ScheduleList({
           </div>
         </div>
 
-        <div className="schedule-count">{schedules.length} Tasks</div>
+        <div className="list-header-actions">
+          {completedCount > 0 && (
+            <button
+              type="button"
+              className="clear-completed-btn"
+              onClick={onClearCompleted}
+            >
+              🧹 Clear completed ({completedCount})
+            </button>
+          )}
+
+          <div className="schedule-count">{schedules.length} Tasks</div>
+        </div>
       </div>
 
       <div className="search-sort-row">
