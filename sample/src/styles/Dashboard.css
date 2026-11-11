@@ -41,6 +41,42 @@
   line-height: 1.7;
 }
 
+.progress-wrapper {
+  margin-top: 22px;
+  max-width: 420px;
+}
+
+.progress-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #4a5b84;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+
+.progress-info strong {
+  color: #e8419b;
+  font-size: 14px;
+}
+
+.progress-track {
+  width: 100%;
+  height: 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: inset 0 1px 3px rgba(60, 78, 129, 0.12);
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #277cff, #a64ff2, #ed4fa2);
+  box-shadow: 0 4px 12px rgba(237, 79, 162, 0.45);
+  transition: width 0.6s ease;
+}
+
 .calendar-icon {
   width: 150px;
   height: 150px;
@@ -55,7 +91,7 @@
 
 .stats-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 18px;
   margin-top: 20px;
 }
@@ -100,6 +136,10 @@
 
 .orange-card .stat-icon {
   background: #fff0dc;
+}
+
+.red-card .stat-icon {
+  background: #ffe4e7;
 }
 
 .stat-card span {
