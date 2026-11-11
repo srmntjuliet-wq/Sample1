@@ -1,10 +1,10 @@
 .schedule-form-section {
   background: white;
-  border: 1px solid #edf0f7;
+  border: 1px solid #f4e5f0;
   border-radius: 28px;
   padding: 30px;
   margin-bottom: 40px;
-  box-shadow: 0 15px 45px rgba(48, 70, 120, 0.07);
+  box-shadow: 0 15px 45px rgba(197, 98, 155, 0.09);
 }
 
 .section-title > div,
@@ -20,11 +20,11 @@
   border-radius: 14px;
   display: grid;
   place-items: center;
-  background: linear-gradient(135deg, #277cff, #ed4fa3);
+  background: linear-gradient(135deg, #277cff 0%, #c94cff 50%, #ed4fa3 100%);
   color: white;
   font-weight: 900;
   font-size: 12px;
-  box-shadow: 0 8px 20px rgba(82, 103, 255, 0.2);
+  box-shadow: 0 8px 20px rgba(197, 76, 200, 0.28);
 }
 
 .section-title h2,
@@ -68,12 +68,12 @@
 .form-group textarea {
   width: 100%;
   box-sizing: border-box;
-  border: 2px solid #edf0f7;
+  border: 2px solid #f4e7ee;
   border-radius: 14px;
   padding: 13px 15px;
   outline: none;
   color: #34415f;
-  background: #fbfcff;
+  background: #fdfaff;
   font-family: inherit;
   transition: 0.25s;
 }
@@ -86,9 +86,9 @@
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
-  border-color: #5b86ff;
+  border-color: #ef5ba7;
   background: white;
-  box-shadow: 0 0 0 4px rgba(91, 134, 255, 0.1);
+  box-shadow: 0 0 0 4px rgba(239, 91, 167, 0.16);
 }
 
 .form-actions {
@@ -108,7 +108,7 @@
   font-weight: 900;
   cursor: pointer;
   transition: 0.3s;
-  box-shadow: 0 12px 25px rgba(105, 81, 238, 0.25);
+  box-shadow: 0 12px 25px rgba(197, 76, 200, 0.28);
 }
 
 .create-button span {
@@ -118,7 +118,7 @@
 
 .create-button:hover {
   transform: translateY(-3px);
-  box-shadow: 0 18px 35px rgba(105, 81, 238, 0.32);
+  box-shadow: 0 18px 35px rgba(197, 76, 200, 0.36);
 }
 
 .create-button:active {
@@ -126,8 +126,8 @@
 }
 
 .cancel-button {
-  border: 2px solid #edf0f7;
-  background: #fbfcff;
+  border: 2px solid #f4e5f0;
+  background: #fdfaff;
   color: #64748a;
   border-radius: 15px;
   padding: 15px 22px;
