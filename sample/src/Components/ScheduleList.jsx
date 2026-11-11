@@ -1,16 +1,17 @@
+import SearchBar from "./SearchBar";
 import "../styles/ScheduleList.css";
 
 function ScheduleList({
   schedules,
   filter,
   setFilter,
+  search,
+  onSearchChange,
   children,
 }) {
   return (
     <section className="schedule-list-section" id="schedule">
-
       <div className="list-header">
-
         <div>
           <span className="section-number">02</span>
 
@@ -20,14 +21,16 @@ function ScheduleList({
           </div>
         </div>
 
-        <div className="schedule-count">
-          {schedules.length} Tasks
-        </div>
-
+        <div className="schedule-count">{schedules.length} Tasks</div>
       </div>
 
-      <div className="filter-bar">
+      <SearchBar
+        value={search}
+        onChange={onSearchChange}
+        placeholder="Search by title, description or category..."
+      />
 
+      <div className="filter-bar">
         <button
           className={filter === "All" ? "active" : ""}
           onClick={() => setFilter("All")}
@@ -69,11 +72,9 @@ function ScheduleList({
         >
           Exams
         </button>
-
       </div>
 
       <div className="schedule-grid">
-
         {schedules.length > 0 ? (
           children
         ) : (
@@ -83,14 +84,11 @@ function ScheduleList({
             <h3>No schedules found</h3>
 
             <p>
-              Create a new schedule to start organizing
-              your academic tasks.
+              Create a new schedule to start organizing your academic tasks.
             </p>
           </div>
         )}
-
       </div>
-
     </section>
   );
 }

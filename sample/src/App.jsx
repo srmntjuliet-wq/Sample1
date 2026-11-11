@@ -45,6 +45,7 @@ function App() {
     loadSchedules(SAMPLE_SCHEDULES)
   );
   const [filter, setFilter] = useState("All");
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     saveSchedules(schedules);
@@ -53,11 +54,7 @@ function App() {
   const addSchedule = (newSchedule) => {
     setSchedules((previous) => [
       ...previous,
-      {
-        ...newSchedule,
-        id: Date.now(),
-        completed: false,
-      },
+      { ...newSchedule, id: Date.now(), completed: false },
     ]);
   };
 
@@ -77,10 +74,18 @@ function App() {
     );
   };
 
-  const filteredSchedules =
-    filter === "All"
-      ? schedules
-      : schedules.filter((schedule) => schedule.category === filter);
+  const normalizedQuery = search.trim().toLowerCase();
+
+  const filteredSchedules = schedules
+    .filter((schedule) => filter === "All" || schedule.category === filter)
+    .filter((schedule) => {
+      if (!normalizedQuery) return true;
+      return (
+        schedule.title.toLowerCase().includes(normalizedQuery) ||
+        (schedule.description || "").toLowerCase().includes(normalizedQuery) ||
+        schedule.category.toLowerCase().includes(normalizedQuery)
+      );
+    });
 
   return (
     <div className="app">
@@ -95,6 +100,8 @@ function App() {
           schedules={filteredSchedules}
           filter={filter}
           setFilter={setFilter}
+          search={search}
+          onSearchChange={setSearch}
         >
           {filteredSchedules.map((schedule) => (
             <ScheduleCard
