@@ -1,17 +1,12 @@
+import {
+  formatScheduleDate,
+  getDueStatus,
+} from "../utils/dateUtils";
 import "../styles/ScheduleCard.css";
 
-function ScheduleCard({
-  schedule,
-  onDelete,
-  onToggle,
-}) {
-  const formattedDate = new Date(
-    schedule.date + "T00:00:00"
-  ).toLocaleDateString("en-US", {
-    month: "short",
-    day: "numeric",
-    year: "numeric",
-  });
+function ScheduleCard({ schedule, onDelete, onToggle }) {
+  const formattedDate = formatScheduleDate(schedule.date);
+  const due = getDueStatus(schedule);
 
   return (
     <article
@@ -19,9 +14,7 @@ function ScheduleCard({
         schedule.completed ? "completed-card" : ""
       }`}
     >
-
       <div className="card-top">
-
         <span className={`category ${schedule.category.toLowerCase()}`}>
           {schedule.category}
         </span>
@@ -30,21 +23,16 @@ function ScheduleCard({
           {schedule.priority}
         </span>
 
+        <span className={`due-badge due-${due.key}`}>{due.label}</span>
       </div>
 
       <div className="card-content">
-
         <h3>{schedule.title}</h3>
 
-        <p>
-          {schedule.description ||
-            "No description provided."}
-        </p>
-
+        <p>{schedule.description || "No description provided."}</p>
       </div>
 
       <div className="schedule-details">
-
         <div>
           <span>📅</span>
           {formattedDate}
@@ -54,18 +42,14 @@ function ScheduleCard({
           <span>⏰</span>
           {schedule.time}
         </div>
-
       </div>
 
       <div className="card-actions">
-
         <button
           className="complete-button"
           onClick={() => onToggle(schedule.id)}
         >
-          {schedule.completed
-            ? "↩ Undo"
-            : "✓ Complete"}
+          {schedule.completed ? "↩ Undo" : "✓ Complete"}
         </button>
 
         <button
@@ -74,9 +58,7 @@ function ScheduleCard({
         >
           🗑 Delete
         </button>
-
       </div>
-
     </article>
   );
 }

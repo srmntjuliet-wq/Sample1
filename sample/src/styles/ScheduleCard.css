@@ -27,12 +27,14 @@
 
 .card-top {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
-  gap: 10px;
+  gap: 8px;
 }
 
 .category,
-.priority {
+.priority,
+.due-badge {
   padding: 6px 10px;
   border-radius: 12px;
   font-size: 10px;
@@ -81,6 +83,41 @@
 }
 
 .priority.low {
+  background: #e5f8ef;
+  color: #19996b;
+}
+
+.due-badge {
+  background: #f1f3f7;
+  color: #7c8495;
+}
+
+.due-badge.due-overdue {
+  background: #ffe0e4;
+  color: #d0314b;
+}
+
+.due-badge.due-today {
+  background: #ffe1ee;
+  color: #d63f8b;
+}
+
+.due-badge.due-tomorrow {
+  background: #fff1dd;
+  color: #c47a1a;
+}
+
+.due-badge.due-week {
+  background: #eaf2ff;
+  color: #3a72d6;
+}
+
+.due-badge.due-upcoming {
+  background: #eff3fa;
+  color: #59668a;
+}
+
+.due-badge.due-completed {
   background: #e5f8ef;
   color: #19996b;
 }
