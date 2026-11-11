@@ -5,6 +5,7 @@ import Dashboard from "./components/Dashboard";
 import ScheduleForm from "./components/ScheduleForm";
 import ScheduleList from "./components/ScheduleList";
 import ScheduleCard from "./components/ScheduleCard";
+import Toast from "./components/Toast";
 import { loadSchedules, saveSchedules } from "./utils/storage";
 import { sortSchedules } from "./utils/sortUtils";
 
@@ -49,16 +50,21 @@ function App() {
   const [search, setSearch] = useState("");
   const [sortBy, setSortBy] = useState("date-asc");
   const [editingSchedule, setEditingSchedule] = useState(null);
+  const [toast, setToast] = useState({ message: "", type: "success" });
 
   useEffect(() => {
     saveSchedules(schedules);
   }, [schedules]);
+
+  const showToast = (message, type = "success") =>
+    setToast({ message, type });
 
   const addSchedule = (newSchedule) => {
     setSchedules((previous) => [
       ...previous,
       { ...newSchedule, id: Date.now(), completed: false },
     ]);
+    showToast("Schedule created successfully.");
   };
 
   const updateSchedule = (updatedSchedule) => {
@@ -69,14 +75,15 @@ function App() {
           : schedule
       )
     );
-
     setEditingSchedule(null);
+    showToast("Schedule updated.");
   };
 
   const deleteSchedule = (id) => {
     setSchedules((previous) =>
       previous.filter((schedule) => schedule.id !== id)
     );
+    showToast("Schedule deleted.", "info");
   };
 
   const toggleComplete = (id) => {
@@ -138,6 +145,12 @@ function App() {
           ))}
         </ScheduleList>
       </main>
+
+      <Toast
+        message={toast.message}
+        type={toast.type}
+        onClose={() => setToast({ message: "", type: "success" })}
+      />
     </div>
   );
 }
