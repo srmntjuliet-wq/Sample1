@@ -48,6 +48,7 @@ function App() {
   const [filter, setFilter] = useState("All");
   const [search, setSearch] = useState("");
   const [sortBy, setSortBy] = useState("date-asc");
+  const [editingSchedule, setEditingSchedule] = useState(null);
 
   useEffect(() => {
     saveSchedules(schedules);
@@ -58,6 +59,18 @@ function App() {
       ...previous,
       { ...newSchedule, id: Date.now(), completed: false },
     ]);
+  };
+
+  const updateSchedule = (updatedSchedule) => {
+    setSchedules((previous) =>
+      previous.map((schedule) =>
+        schedule.id === updatedSchedule.id
+          ? { ...schedule, ...updatedSchedule }
+          : schedule
+      )
+    );
+
+    setEditingSchedule(null);
   };
 
   const deleteSchedule = (id) => {
@@ -98,7 +111,12 @@ function App() {
       <main className="main-content">
         <Dashboard schedules={schedules} />
 
-        <ScheduleForm onAddSchedule={addSchedule} />
+        <ScheduleForm
+          onAddSchedule={addSchedule}
+          editingSchedule={editingSchedule}
+          onUpdateSchedule={updateSchedule}
+          onCancelEdit={() => setEditingSchedule(null)}
+        />
 
         <ScheduleList
           schedules={visibleSchedules}
@@ -115,6 +133,7 @@ function App() {
               schedule={schedule}
               onDelete={deleteSchedule}
               onToggle={toggleComplete}
+              onEdit={() => setEditingSchedule(schedule)}
             />
           ))}
         </ScheduleList>

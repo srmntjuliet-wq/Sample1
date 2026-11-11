@@ -162,12 +162,13 @@
 
 .card-actions {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
   gap: 8px;
   margin-top: 15px;
 }
 
 .complete-button,
+.edit-button,
 .delete-button {
   border: none;
   border-radius: 12px;
@@ -186,6 +187,15 @@
 .complete-button:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 18px rgba(55, 110, 235, 0.25);
+}
+
+.edit-button {
+  background: #f1ebff;
+  color: #7955dc;
+}
+
+.edit-button:hover {
+  background: #e6daff;
 }
 
 .delete-button {

@@ -1,63 +1,94 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "../styles/ScheduleForm.css";
 
-function ScheduleForm({ onAddSchedule }) {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [category, setCategory] = useState("Activity");
-  const [date, setDate] = useState("");
-  const [time, setTime] = useState("");
-  const [priority, setPriority] = useState("Medium");
+const EMPTY_FORM = {
+  title: "",
+  description: "",
+  category: "Activity",
+  date: "",
+  time: "",
+  priority: "Medium",
+};
+
+function ScheduleForm({
+  onAddSchedule,
+  editingSchedule,
+  onUpdateSchedule,
+  onCancelEdit,
+}) {
+  const [form, setForm] = useState(EMPTY_FORM);
+
+  const isEditing = Boolean(editingSchedule);
+
+  useEffect(() => {
+    if (editingSchedule) {
+      setForm({
+        title: editingSchedule.title,
+        description: editingSchedule.description || "",
+        category: editingSchedule.category,
+        date: editingSchedule.date,
+        time: editingSchedule.time,
+        priority: editingSchedule.priority,
+      });
+    } else {
+      setForm(EMPTY_FORM);
+    }
+  }, [editingSchedule]);
+
+  const setField = (field, value) =>
+    setForm((prev) => ({ ...prev, [field]: value }));
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    if (!title || !date || !time) {
+    if (!form.title || !form.date || !form.time) {
       alert("Please complete the title, date, and time.");
       return;
     }
 
-    onAddSchedule({
-      title,
-      description,
-      category,
-      date,
-      time,
-      priority,
-    });
+    if (isEditing) {
+      onUpdateSchedule({
+        ...editingSchedule,
+        ...form,
+      });
+    } else {
+      onAddSchedule(form);
+    }
 
-    setTitle("");
-    setDescription("");
-    setCategory("Activity");
-    setDate("");
-    setTime("");
-    setPriority("Medium");
+    setForm(EMPTY_FORM);
+  };
+
+  const handleCancel = () => {
+    setForm(EMPTY_FORM);
+    if (onCancelEdit) onCancelEdit();
   };
 
   return (
     <section className="schedule-form-section" id="create">
-
       <div className="section-title">
         <div>
           <span className="section-number">01</span>
 
           <div>
-            <h2>Create New Schedule</h2>
-            <p>Add a new school task to your planner.</p>
+            <h2>{isEditing ? "Edit Schedule" : "Create New Schedule"}</h2>
+            <p>
+              {isEditing
+                ? `Updating "${editingSchedule.title}"`
+                : "Add a new school task to your planner."}
+            </p>
           </div>
         </div>
       </div>
 
       <form className="schedule-form" onSubmit={handleSubmit}>
-
         <div className="form-group full-width">
           <label>Task Title</label>
 
           <input
             type="text"
             placeholder="Example: Java Programming Activity"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            value={form.title}
+            onChange={(e) => setField("title", e.target.value)}
           />
         </div>
 
@@ -66,8 +97,8 @@ function ScheduleForm({ onAddSchedule }) {
 
           <textarea
             placeholder="Write a short description..."
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
+            value={form.description}
+            onChange={(e) => setField("description", e.target.value)}
           ></textarea>
         </div>
 
@@ -75,8 +106,8 @@ function ScheduleForm({ onAddSchedule }) {
           <label>Category</label>
 
           <select
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
+            value={form.category}
+            onChange={(e) => setField("category", e.target.value)}
           >
             <option>Activity</option>
             <option>Assignment</option>
@@ -91,8 +122,8 @@ function ScheduleForm({ onAddSchedule }) {
           <label>Priority</label>
 
           <select
-            value={priority}
-            onChange={(e) => setPriority(e.target.value)}
+            value={form.priority}
+            onChange={(e) => setField("priority", e.target.value)}
           >
             <option>Low</option>
             <option>Medium</option>
@@ -105,8 +136,8 @@ function ScheduleForm({ onAddSchedule }) {
 
           <input
             type="date"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
+            value={form.date}
+            onChange={(e) => setField("date", e.target.value)}
           />
         </div>
 
@@ -115,16 +146,27 @@ function ScheduleForm({ onAddSchedule }) {
 
           <input
             type="time"
-            value={time}
-            onChange={(e) => setTime(e.target.value)}
+            value={form.time}
+            onChange={(e) => setField("time", e.target.value)}
           />
         </div>
 
-        <button className="create-button" type="submit">
-          <span>＋</span>
-          Create Schedule
-        </button>
+        <div className="form-actions full-width">
+          <button className="create-button" type="submit">
+            <span>{isEditing ? "✎" : "＋"}</span>
+            {isEditing ? "Save Changes" : "Create Schedule"}
+          </button>
 
+          {isEditing && (
+            <button
+              className="cancel-button"
+              type="button"
+              onClick={handleCancel}
+            >
+              Cancel
+            </button>
+          )}
+        </div>
       </form>
     </section>
   );

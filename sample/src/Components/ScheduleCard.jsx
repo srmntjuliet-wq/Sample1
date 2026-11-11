@@ -4,7 +4,7 @@ import {
 } from "../utils/dateUtils";
 import "../styles/ScheduleCard.css";
 
-function ScheduleCard({ schedule, onDelete, onToggle }) {
+function ScheduleCard({ schedule, onDelete, onToggle, onEdit }) {
   const formattedDate = formatScheduleDate(schedule.date);
   const due = getDueStatus(schedule);
 
@@ -50,6 +50,13 @@ function ScheduleCard({ schedule, onDelete, onToggle }) {
           onClick={() => onToggle(schedule.id)}
         >
           {schedule.completed ? "↩ Undo" : "✓ Complete"}
+        </button>
+
+        <button
+          className="edit-button"
+          onClick={() => onEdit(schedule)}
+        >
+          ✎ Edit
         </button>
 
         <button

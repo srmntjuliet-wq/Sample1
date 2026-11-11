@@ -91,8 +91,14 @@
   box-shadow: 0 0 0 4px rgba(91, 134, 255, 0.1);
 }
 
+.form-actions {
+  display: flex;
+  gap: 10px;
+  align-items: stretch;
+}
+
 .create-button {
-  grid-column: 1 / -1;
+  flex: 1;
   border: none;
   border-radius: 15px;
   padding: 15px 20px;
@@ -119,6 +125,24 @@
   transform: scale(0.98);
 }
 
+.cancel-button {
+  border: 2px solid #edf0f7;
+  background: #fbfcff;
+  color: #64748a;
+  border-radius: 15px;
+  padding: 15px 22px;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.cancel-button:hover {
+  border-color: #ef5ba7;
+  color: #d63f8b;
+  background: #fff5fa;
+}
+
 @media (max-width: 650px) {
   .schedule-form-section {
     padding: 20px;
@@ -131,5 +155,9 @@
   .full-width,
   .create-button {
     grid-column: auto;
+  }
+
+  .form-actions {
+    flex-direction: column;
   }
 }
