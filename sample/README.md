@@ -1,16 +1,30 @@
-# React + Vite
+# ScheduleCraft — Smart Academic Planner
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React + Vite planner for students: track activities, assignments, reports,
+projects, and exams in one place, with category filters, sorting, search,
+due-status badges, edit/delete, completion progress, and local persistence.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- 🗂️ **Create / edit / delete** schedules (title, description, category, date, time, priority)
+- 🔎 **Search** across title, description and category
+- 🧭 **Filter** by category with live count badges
+- ↕ **Sort** by date (soonest/latest), priority, or title
+- ⏰ **Due status badges** — Overdue / Today / Tomorrow / This week / Upcoming
+- 📊 **Dashboard** — total, pending, completed, high-priority, overdue + completion %
+- 🧹 **Clear completed** with a single click
+- 💾 **localStorage persistence** — your planner survives refreshes
+- 🔔 **Toast notifications** for every action
+- 📱 Fully **responsive** layout
 
-## React Compiler
+## Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React 18 + Vite
+- Plain CSS (pink gradient design system)
+- No external UI libraries
 
-## Expanding the ESLint configuration
+## Getting started
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```bash
+npm install
+npm run dev

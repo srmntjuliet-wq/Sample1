@@ -42,6 +42,15 @@ const SAMPLE_SCHEDULES = [
   },
 ];
 
+const FILTER_CATEGORIES = [
+  "All",
+  "Activity",
+  "Assignment",
+  "Report",
+  "Project",
+  "Exam",
+];
+
 function App() {
   const [schedules, setSchedules] = useState(() =>
     loadSchedules(SAMPLE_SCHEDULES)
@@ -113,16 +122,26 @@ function App() {
 
   const normalizedQuery = search.trim().toLowerCase();
 
-  const filteredSchedules = schedules
-    .filter((schedule) => filter === "All" || schedule.category === filter)
-    .filter((schedule) => {
-      if (!normalizedQuery) return true;
-      return (
-        schedule.title.toLowerCase().includes(normalizedQuery) ||
-        (schedule.description || "").toLowerCase().includes(normalizedQuery) ||
-        schedule.category.toLowerCase().includes(normalizedQuery)
-      );
-    });
+  const searchFiltered = schedules.filter((schedule) => {
+    if (!normalizedQuery) return true;
+    return (
+      schedule.title.toLowerCase().includes(normalizedQuery) ||
+      (schedule.description || "").toLowerCase().includes(normalizedQuery) ||
+      schedule.category.toLowerCase().includes(normalizedQuery)
+    );
+  });
+
+  const filterCounts = FILTER_CATEGORIES.reduce((acc, category) => {
+    acc[category] =
+      category === "All"
+        ? searchFiltered.length
+        : searchFiltered.filter((s) => s.category === category).length;
+    return acc;
+  }, {});
+
+  const filteredSchedules = searchFiltered.filter(
+    (schedule) => filter === "All" || schedule.category === filter
+  );
 
   const visibleSchedules = sortSchedules(filteredSchedules, sortBy);
 
@@ -144,6 +163,7 @@ function App() {
           schedules={visibleSchedules}
           filter={filter}
           setFilter={setFilter}
+          filterCounts={filterCounts}
           search={search}
           onSearchChange={setSearch}
           sortBy={sortBy}

@@ -2,10 +2,20 @@ import SearchBar from "./SearchBar";
 import { SORT_OPTIONS } from "../utils/sortUtils";
 import "../styles/ScheduleList.css";
 
+const FILTERS = [
+  { value: "All", label: "All" },
+  { value: "Activity", label: "Activities" },
+  { value: "Assignment", label: "Assignments" },
+  { value: "Report", label: "Reports" },
+  { value: "Project", label: "Projects" },
+  { value: "Exam", label: "Exams" },
+];
+
 function ScheduleList({
   schedules,
   filter,
   setFilter,
+  filterCounts = {},
   search,
   onSearchChange,
   sortBy,
@@ -63,47 +73,20 @@ function ScheduleList({
       </div>
 
       <div className="filter-bar">
-        <button
-          className={filter === "All" ? "active" : ""}
-          onClick={() => setFilter("All")}
-        >
-          All
-        </button>
+        {FILTERS.map((item) => {
+          const count = filterCounts[item.value] ?? 0;
 
-        <button
-          className={filter === "Activity" ? "active" : ""}
-          onClick={() => setFilter("Activity")}
-        >
-          Activities
-        </button>
-
-        <button
-          className={filter === "Assignment" ? "active" : ""}
-          onClick={() => setFilter("Assignment")}
-        >
-          Assignments
-        </button>
-
-        <button
-          className={filter === "Report" ? "active" : ""}
-          onClick={() => setFilter("Report")}
-        >
-          Reports
-        </button>
-
-        <button
-          className={filter === "Project" ? "active" : ""}
-          onClick={() => setFilter("Project")}
-        >
-          Projects
-        </button>
-
-        <button
-          className={filter === "Exam" ? "active" : ""}
-          onClick={() => setFilter("Exam")}
-        >
-          Exams
-        </button>
+          return (
+            <button
+              key={item.value}
+              className={filter === item.value ? "active" : ""}
+              onClick={() => setFilter(item.value)}
+            >
+              {item.label}
+              <span className="filter-count">{count}</span>
+            </button>
+          );
+        })}
       </div>
 
       <div className="schedule-grid">
