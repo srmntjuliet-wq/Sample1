@@ -6,6 +6,7 @@ import ScheduleForm from "./components/ScheduleForm";
 import ScheduleList from "./components/ScheduleList";
 import ScheduleCard from "./components/ScheduleCard";
 import { loadSchedules, saveSchedules } from "./utils/storage";
+import { sortSchedules } from "./utils/sortUtils";
 
 const SAMPLE_SCHEDULES = [
   {
@@ -46,6 +47,7 @@ function App() {
   );
   const [filter, setFilter] = useState("All");
   const [search, setSearch] = useState("");
+  const [sortBy, setSortBy] = useState("date-asc");
 
   useEffect(() => {
     saveSchedules(schedules);
@@ -87,6 +89,8 @@ function App() {
       );
     });
 
+  const visibleSchedules = sortSchedules(filteredSchedules, sortBy);
+
   return (
     <div className="app">
       <Navbar />
@@ -97,13 +101,15 @@ function App() {
         <ScheduleForm onAddSchedule={addSchedule} />
 
         <ScheduleList
-          schedules={filteredSchedules}
+          schedules={visibleSchedules}
           filter={filter}
           setFilter={setFilter}
           search={search}
           onSearchChange={setSearch}
+          sortBy={sortBy}
+          onSortChange={setSortBy}
         >
-          {filteredSchedules.map((schedule) => (
+          {visibleSchedules.map((schedule) => (
             <ScheduleCard
               key={schedule.id}
               schedule={schedule}

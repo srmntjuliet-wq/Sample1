@@ -1,4 +1,5 @@
 import SearchBar from "./SearchBar";
+import { SORT_OPTIONS } from "../utils/sortUtils";
 import "../styles/ScheduleList.css";
 
 function ScheduleList({
@@ -7,6 +8,8 @@ function ScheduleList({
   setFilter,
   search,
   onSearchChange,
+  sortBy,
+  onSortChange,
   children,
 }) {
   return (
@@ -24,11 +27,26 @@ function ScheduleList({
         <div className="schedule-count">{schedules.length} Tasks</div>
       </div>
 
-      <SearchBar
-        value={search}
-        onChange={onSearchChange}
-        placeholder="Search by title, description or category..."
-      />
+      <div className="search-sort-row">
+        <SearchBar
+          value={search}
+          onChange={onSearchChange}
+          placeholder="Search by title, description or category..."
+        />
+
+        <select
+          className="sort-select"
+          value={sortBy}
+          onChange={(event) => onSortChange(event.target.value)}
+          aria-label="Sort schedules"
+        >
+          {SORT_OPTIONS.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </select>
+      </div>
 
       <div className="filter-bar">
         <button
